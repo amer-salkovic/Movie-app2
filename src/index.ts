@@ -1,5 +1,10 @@
 import {callOMDApi} from "./services/omdbApiService";
 import {generateYears} from "./helpers/yearGeneratorHelper";
+import {listAll} from "./helpers/movieElementHelper";
+import {ApiResponseErrorInterface} from "./interfaces/ApiResponseErrorInterface";
+import {ApiResponseSuccesInterface} from "./interfaces/ApiResponseSuccesInterface";
+import {SingleMovieInterface} from "./interfaces/SingleMovieInterface";
+import {remeberMovieSearch} from "./repository/movieStorage";
 
 
 
@@ -32,48 +37,38 @@ searchMovieElement.addEventListener('click', async () => {
         return;
     }
 
+
     let response = await callOMDApi([
 
         {key: 'y', value: yearSelect.value},
+        {key: 's', value: movieNameElement.value},
     ]);
 
 
 
     if(response.data.Response === 'False'){
+        const errorData = response.data as ApiResponseErrorInterface;
         const erroMessage = document.createElement('h2') as HTMLHeadingElement
-        erroMessage.textContent = response.data.Error+ '<br/> Here are some recommendations:'
+        erroMessage.innerHTML = `${errorData.Error}<br/>Here are some recommendations:`;
 
         movieList.append(erroMessage)
         response = await callOMDApi([
             {key: 's', value: movieNameElement.value},
 
         ])
+    } else {
+        remeberMovieSearch({name: movieNameElement.value, Year: yearSelect.value});
     }
 
 
+    const succesData = response.data as ApiResponseSuccesInterface;
 
-listAll(response.data.Search,movieList)
+
+
+    listAll(succesData.Search, movieList)
 
 
 })
-
-
-function listAll(movies: [], htmlMovieList: HTMLElement) {
-    movies.forEach((movie => {
-        const movieTitle = document.createElement("h2") as HTMLHeadingElement;
-        movieTitle.textContent = movie.Title;
-
-
-        const moviePoster = document.createElement("img") as HTMLImageElement;
-        moviePoster.src = movie.Poster !== "N/A" ? movie.Poster : "";
-
-        const movieHolder = document.createElement("div") as HTMLDivElement;
-        movieHolder.append(movieTitle, moviePoster);
-        htmlMovieList.append(movieHolder);
-    })
-
-
-}
 
 
 

@@ -11,7 +11,7 @@ const API_URL="https://www.omdbapi.com/"
     let searchParams = "";
 
     params.forEach(param => {
-        searchParams += `${param.key}=${param.value}&`;
+        searchParams += `${param.key}=${encodeURIComponent(param.value)}&`;
     });
 
     return API_URL+"?"+searchParams+"apikey="+API_KEY;

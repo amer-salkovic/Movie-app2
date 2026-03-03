@@ -1,5 +1,4 @@
-interface SingleMovieSearch {
-    push(movie: SingleMovieSearch): unknown;
+export interface SingleMovieSearch {
     name: string;
     year: string;
 }

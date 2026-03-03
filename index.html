@@ -9,13 +9,44 @@
 
 </head>
 <body>
-<form>
-    <input id="movieName" type="text" placeholder="Enter movie name"/>
-    <select  id="movieYears">Enter Year</select>
-    <button id="searchMovie" type="button">Search Movie</button>
-</form>
+<div class="app">
+    <header class="top">
+        <div>
+            <h1 class="brand">Movie Finder</h1>
 
-<div id="movieList"></div>
+        </div>
+    </header>
+
+    <form class="bar">
+        <div class="field">
+            <label for="movieName">Movie</label>
+            <input id="movieName" type="text" placeholder="e.g. Interstellar" />
+        </div>
+
+        <div class="field">
+            <label for="movieYears">Year</label>
+            <div class="selectWrap">
+                <select id="movieYears"></select>
+            </div>
+        </div>
+
+        <button id="searchMovie" class="primary" type="button">Search</button>
+    </form>
+
+    <section class="panel">
+        <div class="panelHead">
+            <h2>Recent searches</h2>
+        </div>
+        <div id="existingMoviesSearch" class="chips"></div>
+    </section>
+
+    <section class="panel">
+        <div class="panelHead">
+            <h2>Results</h2>
+        </div>
+        <div id="movieList" class="grid"></div>
+    </section>
+</div>
 
 <script src="dist/bundle.js"></script>
 </body>

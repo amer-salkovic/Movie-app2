@@ -1,68 +1,325 @@
-<style>
-* {
-    box-sizing: border-box;
+*{box-sizing:border-box}
+html,body{height:100%}
+
+:root{
+    --bg:#070813;
+    --bg2:#0b1021;
+    --surface: rgba(255,255,255,.06);
+    --surface2: rgba(255,255,255,.04);
+    --stroke: rgba(255,255,255,.10);
+    --stroke2: rgba(255,255,255,.16);
+
+    --text:#eef2ff;
+    --muted:#a8b1c7;
+
+    --a:#7aa7ff;
+    --b:#8b5cff;
+
+    --danger:#ff6b86;
+
+    --r12:12px; --r16:16px; --r20:20px;
+
+    --shadow: 0 26px 80px rgba(0,0,0,.62);
+    --shadow2: 0 14px 38px rgba(0,0,0,.46);
 }
 
-body {
-    margin: 0;
-    padding: 30px;
-    font-family: Arial, sans-serif;
-    background: #0f0f14;
-    color: #ffffff;
+body{
+    margin:0;
+    padding: 52px 18px;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: var(--text);
+    background:
+            radial-gradient(1200px 700px at 16% 10%, rgba(122,167,255,.22), transparent 62%),
+            radial-gradient(1100px 650px at 88% 12%, rgba(139,92,255,.18), transparent 60%),
+            radial-gradient(900px 520px at 50% 110%, rgba(255,255,255,.06), transparent 60%),
+            linear-gradient(180deg, var(--bg), var(--bg2));
 }
 
-/* Form styling */
-form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
+.app{
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-input, select, button {
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #333;
-    background: #1a1a22;
-    color: white;
+.top{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin-bottom: 18px;
 }
 
-input::placeholder {
-    color: #888;
+.brand{
+    margin:0;
+    font-size: 30px;
+    letter-spacing: .2px;
+    line-height: 1.05;
 }
 
-button {
-    cursor: pointer;
-    background: #2d2d45;
-}
-
-button:hover {
-    background: #3c3c5a;
-}
-
-/* Movie grid */
-#movieList {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-}
-
-/* Movie card */
-#movieList div {
-    background: #1a1a22;
-    padding: 12px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-#movieList h2 {
+.hint{
+    margin: 8px 0 0 0;
+    color: rgba(168,177,199,.92);
     font-size: 14px;
-    margin: 0 0 10px 0;
+    line-height: 1.45;
 }
 
-#movieList img {
-    width: 100%;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 8px;
+/* SEARCH BAR */
+.bar{
+    display:grid;
+    grid-template-columns: 1fr 220px auto;
+    gap: 12px;
+    padding: 14px;
+    border-radius: var(--r20);
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+    box-shadow: var(--shadow2);
+    backdrop-filter: blur(14px);
+    margin: 18px 0 18px 0;
 }
-</style>
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap: 6px;
+}
+
+label{
+    font-size: 12px;
+    letter-spacing: .35px;
+    color: rgba(168,177,199,.92);
+    text-transform: uppercase;
+}
+
+input, select, button{
+    height: 48px;
+    border-radius: 14px;
+    border: 1px solid var(--stroke);
+    background: rgba(7,8,19,.55);
+    color: var(--text);
+    font-size: 14px;
+    transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease, background .18s ease;
+}
+
+input{
+    padding: 0 16px;
+}
+
+input::placeholder{
+    color: rgba(168,177,199,.65);
+}
+
+input:focus{
+    outline:none;
+    border-color: rgba(122,167,255,.85);
+    box-shadow: 0 0 0 4px rgba(122,167,255,.20);
+    background: rgba(18,22,36,.66);
+}
+
+/* Select wrapper */
+.selectWrap{
+    position: relative;
+}
+
+.selectWrap::after{
+    content:"";
+    position:absolute;
+    right: 14px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    transform: translateY(-50%) rotate(45deg);
+    border-right: 2px solid rgba(238,242,255,.8);
+    border-bottom: 2px solid rgba(238,242,255,.8);
+    pointer-events:none;
+    opacity:.85;
+}
+
+select{
+    width:100%;
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    padding: 0 44px 0 14px;
+    cursor:pointer;
+    background: linear-gradient(180deg, rgba(18,22,36,.75), rgba(12,16,28,.72));
+}
+
+select:hover{
+    border-color: rgba(122,167,255,.55);
+    box-shadow: 0 0 0 3px rgba(122,167,255,.14);
+}
+
+select:focus{
+    outline:none;
+    border-color: rgba(122,167,255,.9);
+    box-shadow: 0 0 0 4px rgba(122,167,255,.22);
+}
+
+select option{
+    background:#121624;
+    color: var(--text);
+}
+
+/* Button */
+button.primary{
+    padding: 0 22px;
+    border: 1px solid rgba(122,167,255,.35);
+    background: linear-gradient(135deg, rgba(122,167,255,.95), rgba(139,92,255,.95));
+    font-weight: 800;
+    letter-spacing: .2px;
+    cursor:pointer;
+    box-shadow: 0 16px 34px rgba(122,167,255,.18);
+}
+
+button.primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 22px 48px rgba(122,167,255,.22);
+}
+
+button.primary:active{ transform: translateY(0); }
+
+/* PANELS */
+.panel{
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: var(--r20);
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+    box-shadow: var(--shadow2);
+}
+
+.panelHead{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom: 10px;
+}
+
+.panelHead h2{
+    margin:0;
+    font-size: 13px;
+    letter-spacing: .35px;
+    text-transform: uppercase;
+    color: rgba(238,242,255,.9);
+}
+
+/* CHIPS */
+.chips, #existingMoviesSearch{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+}
+
+#existingMoviesSearch p{
+    margin:0;
+    padding: 9px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.035));
+    color: rgba(238,242,255,.92);
+    font-size: 12.5px;
+    box-shadow: 0 12px 26px rgba(0,0,0,.36);
+    transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+#existingMoviesSearch p:hover{
+    transform: translateY(-1px);
+    border-color: rgba(122,167,255,.45);
+    box-shadow: 0 16px 32px rgba(0,0,0,.46);
+}
+
+/* GRID */
+.grid, #movieList{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+/* ERROR BLOCK */
+#movieList > h2{
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 14px 16px;
+    border-radius: var(--r16);
+    border: 1px solid rgba(255,107,134,.28);
+    background: rgba(255,107,134,.08);
+    color: rgba(255,232,238,.96);
+    box-shadow: var(--shadow2);
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+/* CARD */
+#movieList > div{
+    display:flex;
+    flex-direction: column-reverse; /* ostaje, ali order rešava */
+    gap: 12px;
+    padding: 14px;
+    border-radius: var(--r20);
+    border: 1px solid var(--stroke);
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+    box-shadow: 0 16px 40px rgba(0,0,0,.42);
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+#movieList > div:hover{
+    transform: translateY(-5px);
+    border-color: rgba(122,167,255,.38);
+    box-shadow: var(--shadow);
+}
+
+/* Poster */
+#movieList img{
+    width:100%;
+    height: 320px;
+    object-fit: cover;
+    border-radius: var(--r16);
+    border: 1px solid rgba(255,255,255,.10);
+    background: rgba(255,255,255,.03);
+}
+
+/* Ako nema poster */
+#movieList img[src=""]{
+    height: 190px;
+    border-style: dashed;
+    opacity: .55;
+}
+
+/* Title */
+#movieList h2{
+    margin:0;
+    font-size: 14px;
+    font-weight: 850;
+    letter-spacing: .2px;
+    line-height: 1.25;
+    color: rgba(238,242,255,.95);
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+    overflow:hidden;
+}
+
+/* YEAR (OVO TI JE FALILO) */
+#movieList > div p{
+    margin: 0;
+    font-size: 12.5px;
+    font-weight: 650;
+    letter-spacing: .35px;
+    color: rgba(168,177,199,.92);
+    text-transform: uppercase;
+}
+
+/* REDOSLED: poster -> title -> year (bez menjanja JS) */
+#movieList > div img{ order: 1; }
+#movieList > div h2{ order: 2; }
+#movieList > div p{ order: 3; }
+
+/* Responsive */
+@media (max-width: 760px){
+    .bar{ grid-template-columns: 1fr; }
+    select{ flex: 1 1 auto; width: 100%; }
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar{ width: 10px; }
+::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.12); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,.18); }

@@ -1,14 +1,12 @@
-import {SingleMovieInterface} from "../interfaces/SingleMovieInterface";
-import {ApiResponseSuccesInterface} from "../interfaces/ApiResponseSuccesInterface";
 import {SingleMovieSearch} from "../interfaces/movieStorage/SingleMovieSearch";
 
-export function remeberMovieSearch(movie:SingleMovieSearch):void {
+export function remeberMovieSearch(movie: SingleMovieSearch): void {
     const existingMovie = getAllMoviesSearch()
     const alreadExists: boolean = existingMovie.some(m =>
-     m.name.toLowerCase() === movie.name.toLowerCase() && m.year === movie.year
+        m.name.toLowerCase() === movie.name.toLowerCase() && m.year === movie.year
     )
 
-    if(alreadExists){
+    if (alreadExists) {
         return;
     }
 
@@ -18,8 +16,12 @@ export function remeberMovieSearch(movie:SingleMovieSearch):void {
 }
 
 export function getAllMoviesSearch(): SingleMovieSearch[] {
-     const data  = localStorage.getItem("remeberedMovies");
-     return data ? JSON.parse(data): []
+    const data = localStorage.getItem("remeberedMovies");
+    return data ? JSON.parse(data) : []
 
 
+}
+
+export function clearAllMoviesSearch(): void {
+    localStorage.removeItem("remeberedMovies");
 }

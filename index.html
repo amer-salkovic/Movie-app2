@@ -33,6 +33,8 @@
         <button id="searchMovie" class="primary" type="button">Search</button>
     </form>
 
+    <button id="clearedMoviesSearch">Clear all previous searches</button>
+
     <section class="panel">
         <div class="panelHead">
             <h2>Recent searches</h2>
@@ -48,6 +50,12 @@
     </section>
 </div>
 
+<div id="movieModal" class="modal hidden">
+    <div id="modalContent">
+        <button id="closeModal" class="closeBtn" type="button">✕</button>
+        <div id="modalBody"></div>
+    </div>
+</div>
 <script src="dist/bundle.js"></script>
 </body>
 </html>

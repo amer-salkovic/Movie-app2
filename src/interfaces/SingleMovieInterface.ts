@@ -1,4 +1,4 @@
-export interface SearchMovieInterface {
+export interface SingleMovieInterface {
     Title: string
     Year: string
     imdbID: string

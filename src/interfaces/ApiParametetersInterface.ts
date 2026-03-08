@@ -1,5 +1,4 @@
-
-export interface ApiParametetersInterface{
-    key:string,
-    value:string,
+export interface ApiParametetersInterface {
+    key: string,
+    value: string,
 }

@@ -102,4 +102,14 @@ export async function showMovieDetalis(imdbId: string): Promise<void> {
 
     popupContent.append(moviePoster, movieInfo);
     singleMoviePopup.classList.remove("hidden");
+
+  const closeButton = document.getElementById("closeModal");
+
+  if(closeButton instanceof HTMLButtonElement&&  singleMoviePopup instanceof HTMLDivElement) {
+      closeButton.addEventListener("click", () => {
+          singleMoviePopup.classList.add("hidden");
+      })
+  }
+
+
 }
